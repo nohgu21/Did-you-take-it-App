@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Smart Checklist App
+
+A dynamic checklist application to help you remember essential items for different occasions - office, parties, dates, and more.
+
+## Features
+
+- **Multiple Categories**: Switch between Office, Party, and Date checklists
+- **Interactive Checkboxes**: Mark items as packed
+- **Completion Celebration**: Confetti animation when all items are checked
+- **Modern UI**: Built with Tailwind CSS for a clean, responsive design
+- **Fast Performance**: Powered by Next.js 16 with React 19
+
+## Tech Stack
+
+- **Framework**: Next.js 16.1.6
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **UI Library**: React 19
+- **Animation**: canvas-confetti
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 20 or higher
+- pnpm (recommended) or npm
+
+### Installation
+
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <https://github.com/nohgu21/Did-you-take-it-App>
+cd <project-folder>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies
+```bash
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Learn More
+## Project Structure
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── Checklist.tsx
+│   │   └── Header.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+└── types/
+    └── checklistData.ts
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Roadmap
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Planned Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [ ] Local storage persistence
+- [ ] Custom categories
+- [ ] Add/delete custom items
+- [ ] Weather-based suggestions
+- [ ] Time-based reminders
+- [ ] Stats dashboard
+- [ ] User authentication
+- [ ] Database integration
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Contributions are welcome! Feel free to open issues or submit pull requests.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT
+
+## Acknowledgments
+
+- Confetti animation powered by [canvas-confetti](https://www.npmjs.com/package/canvas-confetti)
