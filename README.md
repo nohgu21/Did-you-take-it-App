@@ -9,6 +9,7 @@ A dynamic checklist application to help you remember essential items for differe
 - **Completion Celebration**: Confetti animation when all items are checked
 - **Modern UI**: Built with Tailwind CSS for a clean, responsive design
 - **Fast Performance**: Powered by Next.js 16 with React 19
+- **Local Storage**: Saves item isChecked status after refresh
 
 ## Tech Stack
 
@@ -55,6 +56,8 @@ src/
 │   ├── globals.css
 │   ├── layout.tsx
 │   └── page.tsx
+├── hooks/
+|   └── useLocalStorage.ts
 └── types/
     └── checklistData.ts
 ```
@@ -63,7 +66,6 @@ src/
 
 ### Planned Features
 
-- [ ] Local storage persistence
 - [ ] Custom categories
 - [ ] Add/delete custom items
 - [ ] Weather-based suggestions
