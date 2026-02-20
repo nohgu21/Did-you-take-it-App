@@ -5,7 +5,7 @@ import confetti from "canvas-confetti";
 import { type ChecklistItem, officeItems, partyItems, dateItems, gymItems } from '../types/checklistData'
 import Checklist from './components/Checklist';
 import Header from './components/Header';
-import useLocalStorage from '../hooks/useLocalStorage'
+import  useLocalStorage from '../hooks/useLocalStorage'
 
 type Category = 'office' | 'party' | 'date' | 'gym'
 

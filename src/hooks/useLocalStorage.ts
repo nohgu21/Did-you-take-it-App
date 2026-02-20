@@ -13,8 +13,8 @@ export default function useLocalStorage<T>(
       if (item !== null) {
         setValue(JSON.parse(item))
       }
-    } catch (error) {
-      console.error(error)
+    } catch (err) {
+      console.error(err)
     } finally {
       setHydrated(true)
     }
@@ -24,8 +24,8 @@ export default function useLocalStorage<T>(
     if (!hydrated) return
     try {
       localStorage.setItem(key, JSON.stringify(value))
-    } catch (error) {
-      console.error(error)
+    } catch (err) {
+      console.error(err)
     }
   }, [key, value, hydrated])
 
