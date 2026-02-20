@@ -60,7 +60,7 @@ export default function Page() {
 
   useEffect(() => {
     const allChecked = items.every((item: ChecklistItem) => item.isChecked) && items.length > 0
-    if (allChecked && !showModal) {
+    if (allChecked) {
       confetti({
         particleCount: 1000,
         spread: 100,
