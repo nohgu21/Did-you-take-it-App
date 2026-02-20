@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import confetti from "canvas-confetti";
 import { type ChecklistItem, officeItems, partyItems, dateItems, gymItems } from '../types/checklistData'
 import Checklist from './components/Checklist';
@@ -57,10 +57,12 @@ export default function Page() {
 
   
   
+  const isComplete = useRef(false)
 
   useEffect(() => {
-    const allChecked = items.every((item: ChecklistItem) => item.isChecked) && items.length > 0
-    if (allChecked) {
+    const allChecked = 
+    items.length > 0 && items.every(item => item.isChecked)
+    if (allChecked && !isComplete.current) {
       confetti({
         particleCount: 1000,
         spread: 100,
@@ -68,7 +70,8 @@ export default function Page() {
       });
       setShowModal(true)
     }
-  }, [items, showModal]);
+    isComplete.current = allChecked
+  }, [items]);
 
   const categoryTitles: Record<Category, string> = {
     office: "Heading out to the office? Don't forget your...",
