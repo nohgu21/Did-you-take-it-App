@@ -147,3 +147,48 @@ export const dateItems: ChecklistItem[] = [
   }
 
 ]
+
+export const gymItems: ChecklistItem[] = [
+  {
+    id: 1, 
+    name: "Wallet",
+    isChecked: false
+  },
+
+  {
+    id: 2, 
+    name: "Face Towel",
+    isChecked: false
+  },
+
+  {
+    id: 3, 
+    name: "Water Bottle",
+    isChecked: false
+  },
+
+  {
+    id: 4, 
+    name: "Headphones",
+    isChecked: false
+  },
+
+  {
+    id: 5, 
+    name: "Power bank",
+    isChecked: false
+  },
+
+  {
+    id: 6, 
+    name: "Keys",
+    isChecked: false
+  },
+
+  {
+    id: 7, 
+    name: "Deodorant",
+    isChecked: false
+  }
+
+]

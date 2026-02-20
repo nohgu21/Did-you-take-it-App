@@ -2,42 +2,65 @@
 
 import { useState, useEffect } from 'react'
 import confetti from "canvas-confetti";
-import { type ChecklistItem, officeItems, partyItems, dateItems } from '../types/checklistData'
+import { type ChecklistItem, officeItems, partyItems, dateItems, gymItems } from '../types/checklistData'
 import Checklist from './components/Checklist';
 import Header from './components/Header';
+import useLocalStorage from '../hooks/useLocalStorage'
 
-type Category = 'office' | 'party' | 'date'
+type Category = 'office' | 'party' | 'date' | 'gym'
 
 export default function Page() {
-  const [category, setCategory] = useState<Category>('office')
-  const [items, setItems] = useState<ChecklistItem[]>(officeItems)
+  const [category, setCategory] = useLocalStorage<Category>('checklist-category','office' as Category)
+  const [officeChecklist, setOfficeChecklist] = useLocalStorage<ChecklistItem[]>('office-checklist', officeItems)
+  const [partyChecklist, setPartyChecklist] = useLocalStorage<ChecklistItem[]>('party-checklist', partyItems)
+  const [dateChecklist, setDateChecklist] = useLocalStorage<ChecklistItem[]>('date-checklist', dateItems)
+  const [gymChecklist, setGymChecklist] = useLocalStorage<ChecklistItem[]>('gym-checklist', gymItems)
   const [showModal, setShowModal] = useState(false)
 
 
-  useEffect(() => {
+  const getCurrentItems = (): ChecklistItem[] => {
     switch (category) {
       case 'office':
-        setItems(officeItems);
-        break;
+        return officeChecklist;
       case 'party':
-        setItems(partyItems);
-        break;
+        return partyChecklist;
       case 'date':
-        setItems(dateItems);
-        break;
+        return dateChecklist;
+      case 'gym':
+        return gymChecklist;
+        default:
+          return[];
     }
-  }, [category])
+  }
+
+  const items = getCurrentItems()
 
   const handleCheckBox = (id: number) => {
-    setItems(
-      items.map((item) => item.id === id ? { ...item, isChecked: !item.isChecked } : item
+    const updatedItems = items.map((item: ChecklistItem) => item.id === id ? { ...item, isChecked: !item.isChecked } : item
       )
-    )
+
+      switch (category) {
+      case 'office':
+        setOfficeChecklist(updatedItems);
+        break;
+      case 'party':
+        setPartyChecklist(updatedItems);
+        break;
+      case 'date':
+        setDateChecklist(updatedItems);
+        break;
+      case 'gym':
+        setGymChecklist(updatedItems);
+        break;
+    }
   };
 
+  
+  
+
   useEffect(() => {
-    const allChecked = items.every(item => item.isChecked)
-    if (allChecked) {
+    const allChecked = items.every((item: ChecklistItem) => item.isChecked) && items.length > 0
+    if (allChecked && !showModal) {
       confetti({
         particleCount: 1000,
         spread: 100,
@@ -45,12 +68,13 @@ export default function Page() {
       });
       setShowModal(true)
     }
-  }, [items]);
+  }, [items, showModal]);
 
-  const categoryTitles = {
+  const categoryTitles: Record<Category, string> = {
     office: "Heading out to the office? Don't forget your...",
     party: "Heading out to have fun? Don't forget your...",
-    date: "Heading out for date? Don't forget your..."
+    date: "Heading out on a date? Don't forget your...",
+    gym: "Heading out for a work out? Don't forget your..."
   }
 
   return (
@@ -74,6 +98,12 @@ export default function Page() {
           className={`px-4 py-2 border rounded-lg ${category === 'date' ? 'cursor-pointer hover:translate-y-[-2px] hover:shadow-md bg-zinc-800 text-neutral-100' : 'bg-zinc-800 text-gray-400'}`}
         >
           Date
+        </button>
+
+        <button onClick={() => setCategory('gym')}
+          className={`px-4 py-2 border rounded-lg ${category === 'gym' ? 'cursor-pointer hover:translate-y-[-2px] hover:shadow-md bg-zinc-800 text-neutral-100' : 'bg-zinc-800 text-gray-400'}`}
+        >
+          Gym
         </button>
       </div>
 
