@@ -73,6 +73,10 @@ export default function Page() {
     isComplete.current = allChecked
   }, [items]);
 
+  useEffect(() => {
+  setShowModal(false)
+}, [category])
+
   const categoryTitles: Record<Category, string> = {
     office: "Heading out to the office? Don't forget your...",
     party: "Heading out to have fun? Don't forget your...",
