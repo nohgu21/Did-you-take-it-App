@@ -17,20 +17,15 @@ export default function Page() {
   const [gymChecklist, setGymChecklist] = useLocalStorage<ChecklistItem[]>('gym-checklist', gymItems)
   const [showModal, setShowModal] = useState(false)
 
+  const categoryItems: Record <Category, ChecklistItem[]> = {
+    office: officeChecklist,
+    party: partyChecklist,
+    date: dateChecklist,
+    gym: gymChecklist
+  }
 
   const getCurrentItems = (): ChecklistItem[] => {
-    switch (category) {
-      case 'office':
-        return officeChecklist;
-      case 'party':
-        return partyChecklist;
-      case 'date':
-        return dateChecklist;
-      case 'gym':
-        return gymChecklist;
-        default:
-          return[];
-    }
+    return categoryItems[category]
   }
 
   const items = getCurrentItems()
@@ -69,6 +64,7 @@ export default function Page() {
         origin: { y: 0.5 }
       });
       setShowModal(true)
+      isComplete.current = (false)
     }
     isComplete.current = allChecked
   }, [items]);
