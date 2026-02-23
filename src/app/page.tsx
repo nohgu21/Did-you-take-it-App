@@ -16,6 +16,7 @@ export default function Page() {
   const [dateChecklist, setDateChecklist] = useLocalStorage<ChecklistItem[]>('date-checklist', dateItems)
   const [gymChecklist, setGymChecklist] = useLocalStorage<ChecklistItem[]>('gym-checklist', gymItems)
   const [showModal, setShowModal] = useState(false)
+  const [newItem, setNewItem] = useState('')
 
   const categoryItems: Record <Category, ChecklistItem[]> = {
     office: officeChecklist,
@@ -24,33 +25,38 @@ export default function Page() {
     gym: gymChecklist
   }
 
-  const getCurrentItems = (): ChecklistItem[] => {
-    return categoryItems[category]
+  const categorySetting: Record <Category, (items: ChecklistItem[]) => void> = {
+    office: setOfficeChecklist,
+    party: setPartyChecklist,
+    date: setDateChecklist,
+    gym: setGymChecklist,
   }
 
-  const items = getCurrentItems()
+  const items = categoryItems[category]
+
 
   const handleCheckBox = (id: number) => {
     const updatedItems = items.map((item: ChecklistItem) => item.id === id ? { ...item, isChecked: !item.isChecked } : item
       )
-
-      switch (category) {
-      case 'office':
-        setOfficeChecklist(updatedItems);
-        break;
-      case 'party':
-        setPartyChecklist(updatedItems);
-        break;
-      case 'date':
-        setDateChecklist(updatedItems);
-        break;
-      case 'gym':
-        setGymChecklist(updatedItems);
-        break;
-    }
+      categorySetting[category](updatedItems)
   };
 
-  
+  const addItem = () => {
+    if (newItem.trim() === '') return
+    const newChecklistItem: ChecklistItem = {
+      id: Date.now(),
+      name: newItem.trim(),
+      isChecked: false
+    }
+    const updatedItems = [...items, newChecklistItem]
+    categorySetting[category](updatedItems)
+    setNewItem('')
+  }
+
+  const deleteItem = (id: number) => {
+    const updatedItems = items.filter( item => item.id !== id)
+    categorySetting[category](updatedItems)
+  }
   
   const isComplete = useRef(false)
 
@@ -64,7 +70,7 @@ export default function Page() {
         origin: { y: 0.5 }
       });
       setShowModal(true)
-      isComplete.current = (false)
+      
     }
     isComplete.current = allChecked
   }, [items]);
@@ -111,12 +117,27 @@ export default function Page() {
       </div>
 
 
-
-
       <div className="m-6 space-y-3 p-6 bg-zinc-900 w-1/2 border rounded-lg">
         <h2 className="text-neutral-100 text-md">
           {categoryTitles[category]}
         </h2>
+
+        <div className="flex gap-2">
+    <input
+      type="text"
+      value={newItem}
+      onChange={(e) => setNewItem(e.target.value)}
+      onKeyPress={(e) => e.key === 'Enter' && addItem()}
+      placeholder="Add new item..."
+      className="flex-1 px-3 py-2 bg-zinc-800 text-white rounded-lg border border-zinc-700 focus:outline-none focus:border-blue-500"
+    />
+    <button
+      onClick={addItem}
+      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+    >
+      Add
+    </button>
+  </div>
 
         {items.map((item) => (
           <Checklist
@@ -124,6 +145,7 @@ export default function Page() {
             name={item.name}
             isChecked={item.isChecked}
             onChange={() => handleCheckBox(item.id)}
+            onDelete={() => deleteItem(item.id)}
           />
         ))}
 
