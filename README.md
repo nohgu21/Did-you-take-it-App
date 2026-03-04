@@ -10,6 +10,7 @@ A dynamic checklist application to help you remember essential items for differe
 - **Modern UI**: Built with Tailwind CSS for a clean, responsive design
 - **Fast Performance**: Powered by Next.js 16 with React 19
 - **Local Storage**: Saves item isChecked status after refresh
+- **Weather-based suggestions**: Offers weather forecast and suggests items to carry based on weather changes
 
 ## Tech Stack
 
@@ -68,7 +69,6 @@ src/
 
 - [ ] Custom categories
 - [ ] Add/delete custom items
-- [ ] Weather-based suggestions
 - [ ] Time-based reminders
 - [ ] Stats dashboard
 - [ ] User authentication
