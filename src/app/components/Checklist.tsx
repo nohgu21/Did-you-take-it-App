@@ -7,37 +7,44 @@ interface ChecklistProps {
 
 function Checklist({ name, isChecked, onChange, onDelete }: ChecklistProps) {
   return (
-    <div className="flex items-center gap-2"> 
+    <div className="flex items-center gap-2">
       <label
-        className={`flex-1 flex gap-4 items-center text-xl border rounded-xl p-4 cursor-pointer hover:translate-y-[-2px] hover:shadow-md ${isChecked
-            ? "bg-zinc-900 border-yellow-900"
-            : "bg-zinc-800 border-zinc-700"
-          }`}
-      >  
+        className="flex-1 flex gap-4 items-center text-xl border rounded-xl p-4 cursor-pointer hover:-translate-y-0.5 transition-transform"
+        style={
+          isChecked
+            ? { background: '#111114', borderColor: '#E87A6A33' }
+            : { background: '#111114', borderColor: '#2C2C34' }
+        }
+      >
         <input
           type="checkbox"
           checked={isChecked}
           onChange={onChange}
-          className={`peer hidden`}
+          className="peer hidden"
         />
         <span
-          className={`
-            h-10 w-10 rounded-md border-2
-            flex items-center justify-center
-            transition
-            peer-checked:bg-yellow-300 
-            peer-checked:border-yellow-200
-            border-zinc-500
-          `}
+          className="h-10 w-10 rounded-md border-2 flex items-center justify-center transition shrink-0"
+          style={
+            isChecked
+              ? { background: '#E87A6A', borderColor: '#E87A6A' }
+              : { borderColor: '#2C2C34' }
+          }
         >
-          <span className="h-2 w-2 bg-black rounded-sm opacity-0 peer-checked:opacity-100" />
+          {isChecked && (
+            <span
+              className="h-2 w-2 rounded-sm"
+              style={{ background: '#1A0800' }}
+            />
+          )}
         </span>
 
         <span
-          className={`
-            text-sm
-            ${isChecked ? "text-neutral-400" : "text-neutral-100"}
-          `}
+          className="text-sm"
+          style={
+            isChecked
+              ? { color: '#6E6E80', textDecoration: 'line-through' }
+              : { color: '#F0EEF8' }
+          }
         >
           {name}
         </span>
@@ -46,17 +53,20 @@ function Checklist({ name, isChecked, onChange, onDelete }: ChecklistProps) {
       {onDelete && (
         <button
           onClick={(e) => {
-            e.stopPropagation();
-            onDelete();
+            e.stopPropagation()
+            onDelete()
           }}
-          className="text-red-400 hover:text-red-600 text-xl font-bold px-2"
+          className="text-xl font-bold px-2 transition-colors"
+          style={{ color: '#E05555' }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = '#FF6B6B')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = '#E05555')}
           aria-label="Delete item"
         >
-          X
+          ×
         </button>
       )}
     </div>
-  );
+  )
 }
 
-export default Checklist;
+export default Checklist
