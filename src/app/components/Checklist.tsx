@@ -1,3 +1,6 @@
+import {Trash2} from "lucide-react"
+
+
 interface ChecklistProps {
   name: string;
   isChecked: boolean;
@@ -62,7 +65,7 @@ function Checklist({ name, isChecked, onChange, onDelete }: ChecklistProps) {
           onMouseLeave={(e) => (e.currentTarget.style.color = '#E05555')}
           aria-label="Delete item"
         >
-          ×
+          <Trash2 size={18}/>
         </button>
       )}
     </div>
