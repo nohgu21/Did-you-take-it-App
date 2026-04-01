@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 html, body {
-    background-color: oklch(85.2% 0.199 91.936);
+    background-color: #111114;
     font-family: "DM Sans", sans-serif;
     
 }
